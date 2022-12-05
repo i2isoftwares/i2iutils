@@ -31,7 +31,7 @@ Future<dynamic> getImage(
   PickerOption pickerOption = PickerOption.camera,
   ImageReturnType returnType = ImageReturnType.filePath,
   bool pickMultiple = false,
-  bool canDrawDateTime = false,
+  bool canDrawDateTime = true,
   double maxWidth = 200,
   double maxHeight = 200,
   int quality = 50,
