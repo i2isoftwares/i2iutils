@@ -14,6 +14,7 @@ class BoxEditText extends StatelessWidget {
   TextInputAction? textInputAction;
   TextInputType? keyboardType;
   double? width;
+  BoxDecoration? decoration;
 
   BoxEditText(
       {Key? key,
@@ -32,6 +33,7 @@ class BoxEditText extends StatelessWidget {
       this.maxLength,
       this.textInputAction,
       this.onSubmitted,
+      this.decoration,
       this.validator,
       this.borderColor,
       this.minLines,
@@ -43,7 +45,7 @@ class BoxEditText extends StatelessWidget {
     // TODO: implement build
     return Container(
       width: width,
-      decoration: BoxDecoration(
+      decoration: decoration ?? BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(4)),
           border: borderColor== null ? null : Border.all(color: borderColor!),
           color: Colors.white,
