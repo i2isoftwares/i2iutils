@@ -15,6 +15,7 @@ class BoxEditText extends StatelessWidget {
   TextInputType? keyboardType;
   double? width;
   BoxDecoration? decoration;
+  Function()? onTab;
 
   BoxEditText(
       {Key? key,
@@ -37,6 +38,7 @@ class BoxEditText extends StatelessWidget {
       this.validator,
       this.borderColor,
       this.minLines,
+      this.onTab,
       this.width})
       : super(key: key);
 
@@ -69,6 +71,7 @@ class BoxEditText extends StatelessWidget {
           onChanged: onChanged,
           readOnly: readOnly,
           onFieldSubmitted: onSubmitted,
+          onTap: onTab,
           decoration: InputDecoration(
             filled: false,
             counterText: '',

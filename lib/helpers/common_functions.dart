@@ -8,6 +8,8 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:safe_device/safe_device.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../widgets/button.dart';
 
@@ -101,6 +103,22 @@ Future<dynamic> getDeviceOs() async {
 String getCustomUniqueId() {
   var uuid = const Uuid();
   return uuid.v4();
+}
+
+call(String mobileNo){
+  launchUrlString("tel://$mobileNo");
+}
+
+openFile(String filePath) async{
+  final Uri uri = Uri.file(filePath);
+
+  if (!File(uri.toFilePath()).existsSync()) {
+    throw '$uri does not exist!';
+  }
+  
+  if (!await launchUrl(uri)) {
+  throw 'Could not launch $uri';
+  }
 }
 
 Future<String> getAppVersion() async{
