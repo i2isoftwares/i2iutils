@@ -1,20 +1,19 @@
 import 'dart:io';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:package_info/package_info.dart';
-import 'package:uuid/uuid.dart';
 
 import 'package:datetime_setting/datetime_setting.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+import 'package:package_info/package_info.dart';
 import 'package:safe_device/safe_device.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+import 'package:uuid/uuid.dart';
 
 import '../widgets/button.dart';
 
 Future<bool> isNetConnected() async {
-
   try {
     final result = await InternetAddress.lookup('google.com');
     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
@@ -127,55 +126,60 @@ Future<String> getAppVersion() async{
 }
 
 checkTimeSetting(BuildContext context) async {
-  if (!await DatetimeSetting.timeIsAuto()) {
-    await showModalBottomSheet(
-        enableDrag: false,
-        isDismissible: false,
-        backgroundColor: Colors.transparent,
-        context: context,
-        builder: (context) {
-          return WillPopScope(
-            onWillPop: () async => await DatetimeSetting.timeIsAuto(),
-            child: Container(
-              height: 190,
-              margin: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  const Text(
-                    'Security Warning!',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                  ),
-                  const Divider(),
-                  const Padding(
-                    padding: EdgeInsets.all(12),
-                    child: Text(
-                      'Network provided time is disabled. Please enable the same to proceed further.',
-                      style: TextStyle(fontSize: 14),
-                      textAlign: TextAlign.center,
+  if (Platform.isAndroid) {
+    if (!await DatetimeSetting.timeIsAuto()) {
+      await showModalBottomSheet(
+          enableDrag: false,
+          isDismissible: false,
+          backgroundColor: Colors.transparent,
+          context: context,
+          builder: (context) {
+            return WillPopScope(
+              onWillPop: () async => await DatetimeSetting.timeIsAuto(),
+              child: Container(
+                height: 190,
+                margin: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 8,
                     ),
-                  ),
-                  const Spacer(),
-                  CustomButton(
-                      width: 100,
-                      buttonText: 'Setting',
-                      onPressed: () {
-                        DatetimeSetting.openSetting();
-                      }),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                ],
+                    const Text(
+                      'Security Warning!',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    ),
+                    const Divider(),
+                    const Padding(
+                      padding: EdgeInsets.all(12),
+                      child: Text(
+                        'Network provided time is disabled. Please enable the same to proceed further.',
+                        style: TextStyle(fontSize: 14),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    const Spacer(),
+                    CustomButton(
+                        width: 100,
+                        buttonText: 'Setting',
+                        onPressed: () {
+                          DatetimeSetting.openSetting();
+                        }),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                  ],
+                ),
               ),
-            ),
-          );
-        });
+            );
+          });
+    }
+  } else {
+    debugPrint('Except android its not working');
   }
 }
 

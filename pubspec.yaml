@@ -16,7 +16,7 @@ dependencies:
   intl: ^0.17.0
   datetime_setting: ^2.0.2
   safe_device: ^1.1.1
-  device_info_plus: ^8.0.0
+  device_info_plus:
   package_info: ^2.0.2
   image_picker: ^0.8.6
   permission_handler: ^10.2.0
